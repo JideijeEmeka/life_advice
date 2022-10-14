@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/app_text_styles.dart';
-import 'package:life_advice/views/home_view.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
