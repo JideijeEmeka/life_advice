@@ -1,0 +1,1 @@
+Uri randomAdviceUrl = Uri.parse('https://api.adviceslip.com/advice');
