@@ -1,24 +1,35 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:life_advice/app_text_styles.dart';
 import 'package:life_advice/constants.dart';
 import 'package:life_advice/models/slip.dart';
 import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class AdviceController extends ControllerMVC {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late SharedPreferences prefs;
   Map<String, dynamic> advice = {};
 
+  // Fetch Random Advice
   String saved = '';
   String savedId = '';
   bool isLoading = false;
+  late String fetchedAdvice;
+
+  // Add advice to Favorite List
   List<String> favIdList = [];
   List<String> favAdviceList = [];
   List<String> myList = [];
-  late String fetchedAdvice;
+
+  // Check Internet Connection
+  bool isConnected = false;
+  ConnectivityResult connectivityResult = ConnectivityResult.none;
 
   Future savePrefs(String fetched, String fetchedId) async {
     prefs = await _prefs;
@@ -55,10 +66,6 @@ class AdviceController extends ControllerMVC {
     debugPrint('see list: $favAdviceList');
   }
 
-  // Future addAdviceIdToList(String id) async {
-  //   favIdList.insert(0, id);
-  // }
-
   Future addAdviceToList(String advice) async {
     favAdviceList.insert(0, advice);
     notifyListeners();
@@ -84,6 +91,17 @@ class AdviceController extends ControllerMVC {
     setState(() {
       isLoading = true;
     });
+      final connected = await checkInternet();
+      final color = isConnected ? Colors.green : Colors.red;
+      if(!connected) {
+        showSimpleNotification(
+          Text('You are offline...', style: AppTextStyles.normalTextStyle(color: Colors.white)),
+          background: color,
+        );
+        setState(() {
+          isLoading = false;
+        });
+      }
       var response = await http.get(randomAdviceUrl);
       if(response.statusCode >= 400) {
         throw ErrorHint('Something Went Wrong!');
@@ -96,6 +114,11 @@ class AdviceController extends ControllerMVC {
         isLoading = false;
       });
       return Slip.fromJson(jsonMap);
+  }
+
+  Future<bool> checkInternet() async {
+    isConnected = await InternetConnectionChecker().hasConnection;
+    return isConnected;
   }
 
   AdviceController();

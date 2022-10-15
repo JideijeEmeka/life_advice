@@ -67,8 +67,10 @@ class _DetailsViewState extends StateMVC<DetailsView> {
                         textAlign: TextAlign.center,
                         style: AppTextStyles.adviceTextStyle
                     )
-                : Text('— Mahatma Gandhi', style: AppTextStyles.normalTextStyle(
-                    color: Colors.white),),
+                : con.saved.isEmpty ?
+                Text('— Mahatma Gandhi', style: AppTextStyles.normalTextStyle(
+                    color: Colors.white),) : Text(con.savedId,
+                  style: AppTextStyles.adviceTextStyle,),
                 /// Add to favorite list
                 !con.favAdviceList.contains(con.advice.isNotEmpty ?
                 widget.advice : con.saved.isEmpty ? 'Learn as if you will live forever, '
