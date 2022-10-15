@@ -62,20 +62,24 @@ class _DetailsViewState extends StateMVC<DetailsView> {
                           builder: (_) => const HomeView()));
                 },
                 color: Colors.white,),
+                con.advice.isNotEmpty ?
                 Text(widget.id,
                         textAlign: TextAlign.center,
                         style: AppTextStyles.adviceTextStyle
-                    ),
+                    )
+                : Text('— Mahatma Gandhi', style: AppTextStyles.normalTextStyle(
+                    color: Colors.white),),
                 /// Add to favorite list
                 !con.favAdviceList.contains(con.advice.isNotEmpty ?
-                widget.advice : con.saved) ?
+                widget.advice : con.saved.isEmpty ? 'Learn as if you will live forever, '
+                    'live like you will die tomorrow' : con.saved) ?
                 IconButton(onPressed: () async {
                   await con.addAdviceToList(
                       con.advice.isNotEmpty ?
-                      widget.advice : con.saved
+                      widget.advice : con.saved.isEmpty ? 'Learn as if you will live forever,'
+                          ' live like you will die tomorrow' : con.saved
                   );
                   con.saveMyPrefsList(con.favAdviceList);
-                  print('see advice: ${con.favAdviceList}');
                   ScaffoldMessenger.of(context).showSnackBar(snackBar(
                       message: 'Added to favorites!'));
                 },
@@ -83,8 +87,8 @@ class _DetailsViewState extends StateMVC<DetailsView> {
                 /// Remove from favorite
                     : IconButton(onPressed: () async {
                   con.deleteFavById(context, con.advice.isNotEmpty ?
-                  widget.advice : con.saved);
-                  print('see advice: ${con.favAdviceList}');
+                  widget.advice : con.saved.isEmpty ? 'Learn as if you will live forever,'
+                      ' live like you will die tomorrow' : con.saved);
                 },
                     icon: const Icon(Icons.check, color: Colors.white, size: 30,))
             ],)

@@ -48,14 +48,16 @@ class _HomeViewState extends StateMVC<HomeView> {
         actions: [
           /// Add to favorite list
           !con.favAdviceList.contains(con.advice.isNotEmpty ?
-          con.advice['slip']['advice'] : con.saved) ?
+          con.advice['slip']['advice'] : con.saved.isEmpty ? 'Learn as if you will live forever, '
+              'live like you will die tomorrow' : con.saved) ?
           IconButton(onPressed: () async {
             await con.addAdviceToList(
                 con.advice.isNotEmpty ?
-                con.advice['slip']['advice'] : con.saved
+                con.advice['slip']['advice'] : con.saved.isEmpty ? 'Learn as if you will live forever, '
+                    'live like you will die tomorrow' : con.saved
             );
             con.saveMyPrefsList(con.favAdviceList);
-            print('see advice: ${con.favAdviceList}');
+            debugPrint('see latest advice list: ${con.favAdviceList}');
             ScaffoldMessenger.of(context).showSnackBar(snackBar(
                 message: 'Added to favorites!'));
           },
@@ -63,8 +65,9 @@ class _HomeViewState extends StateMVC<HomeView> {
           /// Remove from favorite
           : IconButton(onPressed: () async {
             con.deleteFavById(context, con.advice.isNotEmpty ?
-            con.advice['slip']['advice'] : con.saved);
-            print('see advice: ${con.favAdviceList}');
+            con.advice['slip']['advice'] : con.saved.isEmpty ? 'Learn as if you will live forever, '
+                'live like you will die tomorrow' : con.saved);
+            debugPrint('see latest advice list: ${con.favAdviceList}');
           },
               icon: const Icon(Icons.check, color: Colors.white, size: 30,))
         ],
