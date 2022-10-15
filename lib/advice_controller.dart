@@ -12,21 +12,46 @@ class AdviceController extends ControllerMVC {
   Map<String, dynamic> advice = {};
 
   String saved = '';
+  String savedId = '';
   bool isLoading = false;
+  List<String> favList = [];
   late String fetchedAdvice;
 
-  Future savePrefs(String fetched) async {
+  Future savePrefs(String fetched, String fetchedId) async {
     prefs = await _prefs;
     await prefs.setString('advice', fetched);
+    await prefs.setString('id', fetchedId);
   }
 
   Future getPrefs() async {
     prefs = await _prefs;
     var fetchedAdvice = prefs.getString('advice') ?? '';
+    var fetchedId = prefs.getString('id') ?? '';
     setState(() {
       saved = fetchedAdvice;
+      savedId = fetchedId;
     });
     debugPrint(saved);
+  }
+
+  Future saveMyPrefsList(List<String> list) async {
+    prefs = await _prefs;
+    prefs.setStringList('savedList', list);
+  }
+
+  Future getMyPrefsList() async {
+    prefs = await _prefs;
+    // prefs.clear();
+    var fetchedAdviceList = prefs.getStringList('savedList') ?? [];
+    setState(() {
+      favList = fetchedAdviceList;
+    });
+    debugPrint('see list: $favList');
+  }
+
+  Future addAdviceToList(String id, String advice) async {
+    favList.insert(0, id);
+    favList.insert(0, advice);
   }
 
   Future getRandomAdvice() async {
