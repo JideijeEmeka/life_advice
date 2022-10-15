@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:life_advice/constants.dart';
 import 'package:life_advice/models/slip.dart';
+import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,9 @@ class AdviceController extends ControllerMVC {
   String saved = '';
   String savedId = '';
   bool isLoading = false;
-  List<String> favList = [];
+  List<String> favIdList = [];
+  List<String> favAdviceList = [];
+  List<String> myList = [];
   late String fetchedAdvice;
 
   Future savePrefs(String fetched, String fetchedId) async {
@@ -25,6 +28,7 @@ class AdviceController extends ControllerMVC {
 
   Future getPrefs() async {
     prefs = await _prefs;
+    //prefs.clear();
     var fetchedAdvice = prefs.getString('advice') ?? '';
     var fetchedId = prefs.getString('id') ?? '';
     setState(() {
@@ -41,17 +45,31 @@ class AdviceController extends ControllerMVC {
 
   Future getMyPrefsList() async {
     prefs = await _prefs;
-    // prefs.clear();
+    //prefs.clear();
     var fetchedAdviceList = prefs.getStringList('savedList') ?? [];
     setState(() {
-      favList = fetchedAdviceList;
+      favIdList = fetchedAdviceList;
+      favAdviceList = fetchedAdviceList;
+      myList = fetchedAdviceList;
     });
-    debugPrint('see list: $favList');
+    debugPrint('see list: $favAdviceList');
   }
 
-  Future addAdviceToList(String id, String advice) async {
-    favList.insert(0, id);
-    favList.insert(0, advice);
+  // Future addAdviceIdToList(String id) async {
+  //   favIdList.insert(0, id);
+  // }
+
+  Future addAdviceToList(String advice) async {
+    favAdviceList.insert(0, advice);
+    notifyListeners();
+  }
+
+  void deleteAdvice(BuildContext context, int index) {
+    favAdviceList.removeAt(index);
+    saveMyPrefsList(favAdviceList);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar(message:
+        'deleted successfully!'));
+    notifyListeners();
   }
 
   Future getRandomAdvice() async {
