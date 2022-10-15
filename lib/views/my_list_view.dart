@@ -30,7 +30,6 @@ class _MyListViewState extends StateMVC<MyListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 210,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(top: 15, bottom: 5),
       padding: const EdgeInsets.all(25),
@@ -40,18 +39,20 @@ class _MyListViewState extends StateMVC<MyListView> {
           color: Colors.black87,
           borderRadius: BorderRadius.circular(25)
       ),
-      child: Stack(
-        children: [
-          Positioned(
-            right: 1, bottom: 1, top: 120,
-            child: IconButton(onPressed: widget.deleteTap, icon: const Icon(
-              Icons.restore_from_trash,
-              color: Colors.white, size: 30,)),
-          ),
-          Text(widget.advice,
-              style: AppTextStyles.adviceTextStyle)
-        ],
-      ),
+      child:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(widget.advice,
+                    style: AppTextStyles.adviceTextStyle),
+              ),
+              IconButton(onPressed: widget.deleteTap, icon: const Icon(
+                Icons.restore_from_trash,
+                color: Colors.white, size: 30)),
+            ],
+          )
     );
   }
 }
