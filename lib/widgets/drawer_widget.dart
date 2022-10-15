@@ -58,7 +58,7 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
                 Navigator.pop(context);
                 Future.delayed(const Duration(milliseconds: 100), () {
                   Navigator.push(context, MaterialPageRoute(builder: (_)
-                  => FavoriteView(favList: con.favList)));
+                  => FavoriteView(favAdviceList: con.favAdviceList,)));
                 });
               },
               selected: selected,

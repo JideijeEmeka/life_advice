@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/advice_controller.dart';
 import 'package:life_advice/views/my_list_view.dart';
+import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class FavoriteView extends StatefulWidget {
-  final List favList;
-  const FavoriteView({Key? key, required this.favList}) : super(key: key);
+  final List favAdviceList;
+  const FavoriteView({Key? key, required this.favAdviceList})
+      : super(key: key);
 
   @override
   _FavoriteViewState createState() => _FavoriteViewState();
@@ -35,13 +37,32 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
         leading: BackButton(onPressed: () => Navigator.pop(context),
             color: Colors.white,),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListView.builder(
-          itemCount: con.favList.length,
-            itemBuilder: (context, index) {
-              return MyListView(id: con.favList[index], advice: '',);
-            }),
+      body: SingleChildScrollView(
+        child: con.favAdviceList.isEmpty
+            ? const Padding(
+              padding: EdgeInsets.symmetric(vertical: 250),
+              child: Center(
+                child: Text('No favorites found...', style: TextStyle(
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+              ),
+            ) :
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.85,
+                child: ListView.builder(
+                  itemCount: con.favAdviceList.length,
+                    itemBuilder: (context, index) {
+                      return MyListView(advice: con.favAdviceList[index],
+                        deleteTap: () => con.deleteAdvice(context, index),);
+                    }),
+              ),
+              const SizedBox(height: 40)
+            ],
+          ),
+        ),
       ),
     );
   }
