@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:life_advice/advice_controller.dart';
 import 'package:life_advice/app_text_styles.dart';
+import 'package:life_advice/views/favorite_view.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
 
   @override
-  State<AppDrawer> createState() => _AppDrawerState();
+  _AppDrawerState createState() => _AppDrawerState();
 }
 
-class _AppDrawerState extends State<AppDrawer> {
+class _AppDrawerState extends StateMVC<AppDrawer> {
+  _AppDrawerState() : super(AdviceController()) {
+    con = controller as AdviceController;
+  }
+
+  late AdviceController con;
   bool selected = false;
   int index = 0;
 
@@ -47,11 +55,11 @@ class _AppDrawerState extends State<AppDrawer> {
                   selected = true;
                   index = 1;
                 });
-                // Future.delayed(const Duration(minutes: 200), () {
-                //   Navigator.pop(context);
-                //   Navigator.push(context, MaterialPageRoute(builder: (_)
-                //   => const HomeView()));
-                // });
+                Navigator.pop(context);
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)
+                  => FavoriteView(favList: con.favList)));
+                });
               },
               selected: selected,
               selectedTileColor: index == 1 ? Colors.blue : null,
