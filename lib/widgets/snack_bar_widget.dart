@@ -6,6 +6,7 @@ SnackBar snackBar({required String message}) {
     (elevation: 5, padding: const EdgeInsets.all(25),
       margin:  const EdgeInsets.all(25),
       behavior: SnackBarBehavior.floating,
+      duration: const Duration(milliseconds: 1000),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: const BorderSide(color: Colors.blue, width: 2.5)
