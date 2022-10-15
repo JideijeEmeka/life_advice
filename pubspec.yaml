@@ -22,6 +22,9 @@ dev_dependencies:
   shared_preferences: ^2.0.15
   mvc_pattern: any
   provider: ^6.0.4
+  internet_connection_checker: any
+  overlay_support: any
+  connectivity_plus: any
 
 flutter:
 
