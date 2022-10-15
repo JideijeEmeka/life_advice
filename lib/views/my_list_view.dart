@@ -1,42 +1,57 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:life_advice/constants.dart';
-import 'package:http/http.dart' as http;
-import 'package:life_advice/models/slip.dart';
+import 'package:life_advice/advice_controller.dart';
+import 'package:life_advice/app_text_styles.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class MyListView extends StatefulWidget {
-  final String id, advice;
-  const MyListView({Key? key, required this.id, required this.advice}) : super(key: key);
+  final String advice;
+  final VoidCallback deleteTap;
+  const MyListView({Key? key, required this.advice, required this.deleteTap})
+      : super(key: key);
 
   @override
-  State<MyListView> createState() => _MyListViewState();
+  _MyListViewState createState() => _MyListViewState();
 }
 
-class _MyListViewState extends State<MyListView> {
-  Map<String, dynamic> details = {};
-
-  Future getAdviceDetails() async {
-    var response = await http.get(adviceDetailsUrl(id: widget.id));
-    if(response.statusCode >= 400) {
-      throw ErrorHint('Something Went Wrong!');
-    }
-    debugPrint(response.body);
-    setState(() {
-      details = jsonDecode(response.body);
-    });
-    return Slip.fromJson(details);
+class _MyListViewState extends StateMVC<MyListView> {
+  _MyListViewState() : super(AdviceController()) {
+    con = controller as AdviceController;
   }
+
+  late AdviceController con;
 
   @override
   void initState() {
-    getAdviceDetails();
+    con.getPrefs();
+    con.getMyPrefsList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Text(widget.id,
-      style: TextStyle(color: Colors.black),);
+    return Container(
+      height: 210,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(top: 15, bottom: 5),
+      padding: const EdgeInsets.all(25),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: Colors.blue, width: 1.5),
+          color: Colors.black87,
+          borderRadius: BorderRadius.circular(25)
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: 1, bottom: 1, top: 120,
+            child: IconButton(onPressed: widget.deleteTap, icon: const Icon(
+              Icons.restore_from_trash,
+              color: Colors.white, size: 30,)),
+          ),
+          Text(widget.advice,
+              style: AppTextStyles.adviceTextStyle)
+        ],
+      ),
+    );
   }
 }
