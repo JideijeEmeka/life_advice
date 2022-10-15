@@ -108,7 +108,7 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
               },
               selected: selected,
               selectedTileColor: index == 3 ? Colors.blue : null,
-              leading: Icon(Icons.favorite_border_outlined,
+              leading: Icon(Icons.account_circle_outlined,
                 color: index == 3 ? Colors.white : Colors.black,),
               title: Text('Account', style: AppTextStyles.normalTextStyle(
                   color: index == 3 ? Colors.white : Colors.black)),
