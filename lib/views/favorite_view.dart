@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/advice_controller.dart';
+import 'package:life_advice/views/home_view.dart';
 import 'package:life_advice/views/my_list_view.dart';
 import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -34,7 +35,11 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
         titleTextStyle: const TextStyle(
             fontSize: 17),
         centerTitle: true,
-        leading: BackButton(onPressed: () => Navigator.pop(context),
+        leading: BackButton(onPressed: () =>
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => const HomeView())),
             color: Colors.white,),
       ),
       body: SingleChildScrollView(

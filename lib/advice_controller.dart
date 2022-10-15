@@ -72,6 +72,14 @@ class AdviceController extends ControllerMVC {
     notifyListeners();
   }
 
+  void deleteFavById(BuildContext context, String advice) {
+    favAdviceList.remove(advice);
+    saveMyPrefsList(favAdviceList);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar(message:
+    'Removed from favorites!'));
+    notifyListeners();
+  }
+
   Future getRandomAdvice() async {
     setState(() {
       isLoading = true;

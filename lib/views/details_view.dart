@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/advice_controller.dart';
 import 'package:life_advice/app_text_styles.dart';
-import 'package:life_advice/constants.dart';
 import 'package:life_advice/views/home_view.dart';
 import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:http/http.dart' as http;
 
 class DetailsView extends StatefulWidget {
   final String id, advice;
@@ -20,14 +18,6 @@ class _DetailsViewState extends StateMVC<DetailsView> {
     con = controller as AdviceController;
   }
   late AdviceController con;
-
-  // Future getAdviceDetails(String id) async {
-  //   var response = await http.get(adviceDetailsUrl(id: id));
-  //   if(response.statusCode >= 400) {
-  //     throw ErrorHint('Something Went Wrong!');
-  //   }
-  //   debugPrint(response.body);
-  // }
 
   @override
   void initState() {
@@ -54,17 +44,18 @@ class _DetailsViewState extends StateMVC<DetailsView> {
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Center(
-                child: Text(widget.advice,
+                child: Text(con.saved.isEmpty ?
+                    'Learn as if you will live forever, live like you '
+                        'will die tomorrow' : widget.advice,
                     textAlign: TextAlign.center,
                     style: AppTextStyles.adviceTextStyle
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BackButton(onPressed: () {
-                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -75,14 +66,27 @@ class _DetailsViewState extends StateMVC<DetailsView> {
                         textAlign: TextAlign.center,
                         style: AppTextStyles.adviceTextStyle
                     ),
+                /// Add to favorite list
+                !con.favAdviceList.contains(con.advice.isNotEmpty ?
+                widget.advice : con.saved) ?
                 IconButton(onPressed: () async {
-                  await con.addAdviceToList(widget.id, widget.advice);
-                  con.saveMyPrefsList(con.favList);
-                  print('${con.favList}');
+                  await con.addAdviceToList(
+                      con.advice.isNotEmpty ?
+                      widget.advice : con.saved
+                  );
+                  con.saveMyPrefsList(con.favAdviceList);
+                  print('see advice: ${con.favAdviceList}');
                   ScaffoldMessenger.of(context).showSnackBar(snackBar(
                       message: 'Added to favorites!'));
                 },
                     icon: const Icon(Icons.add, color: Colors.white, size: 30,))
+                /// Remove from favorite
+                    : IconButton(onPressed: () async {
+                  con.deleteFavById(context, con.advice.isNotEmpty ?
+                  widget.advice : con.saved);
+                  print('see advice: ${con.favAdviceList}');
+                },
+                    icon: const Icon(Icons.check, color: Colors.white, size: 30,))
             ],)
           ],
         ),
