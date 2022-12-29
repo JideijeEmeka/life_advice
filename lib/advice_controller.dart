@@ -39,7 +39,7 @@ class AdviceController extends ControllerMVC {
 
   Future getPrefs() async {
     prefs = await _prefs;
-    //prefs.clear();
+    prefs.clear();
     var fetchedAdvice = prefs.getString('advice') ?? '';
     var fetchedId = prefs.getString('id') ?? '';
     setState(() {
@@ -56,7 +56,6 @@ class AdviceController extends ControllerMVC {
 
   Future getMyPrefsList() async {
     prefs = await _prefs;
-    //prefs.clear();
     var fetchedAdviceList = prefs.getStringList('savedList') ?? [];
     setState(() {
       favIdList = fetchedAdviceList;

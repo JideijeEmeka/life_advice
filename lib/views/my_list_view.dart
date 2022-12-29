@@ -17,7 +17,6 @@ class _MyListViewState extends StateMVC<MyListView> {
   _MyListViewState() : super(AdviceController()) {
     con = controller as AdviceController;
   }
-
   late AdviceController con;
 
   @override
