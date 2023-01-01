@@ -39,7 +39,6 @@ class AdviceController extends ControllerMVC {
 
   Future getPrefs() async {
     prefs = await _prefs;
-    prefs.clear();
     var fetchedAdvice = prefs.getString('advice') ?? '';
     var fetchedId = prefs.getString('id') ?? '';
     setState(() {
