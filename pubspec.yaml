@@ -25,6 +25,8 @@ dev_dependencies:
   internet_connection_checker: any
   overlay_support: any
   connectivity_plus: any
+  persistent_bottom_nav_bar_v2: ^4.2.6
+  google_fonts: 2.1.1
 
 flutter:
 
