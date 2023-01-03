@@ -102,7 +102,7 @@ class AdviceController extends ControllerMVC {
       }
       var response = await http.get(randomAdviceUrl);
       if(response.statusCode >= 400) {
-        throw ErrorHint('Something Went Wrong!');
+        throw ErrorHint('Bad request!');
       }
       fetchedAdvice = response.body;
       var jsonMap = json.decode(fetchedAdvice);
