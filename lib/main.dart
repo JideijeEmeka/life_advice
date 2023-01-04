@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/views/home_view.dart';
+import 'package:life_advice/views/splash_view.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.white,
             primarySwatch: Colors.blue,
           ),
-          home: const HomeView(),
+          home: const SplashView(),
       ),
     );
   }
