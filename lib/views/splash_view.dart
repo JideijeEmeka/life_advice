@@ -16,7 +16,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(milliseconds: 1500), () {
       pushNewScreen(context, screen: const HomeView());
     });
   }
@@ -24,10 +24,12 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("la".toUpperCase(), style: GoogleFonts.lato(
-        textStyle: const TextStyle(color: Colors.black,
-            fontWeight: FontWeight.w500, fontSize: 20)
-      ),),
+      body: Center(
+        child: Text("LA", style: GoogleFonts.lobster(
+          textStyle: const TextStyle(color: Colors.black,
+              fontWeight: FontWeight.w500, fontSize: 30)
+        ),),
+      ),
     );
   }
 }
