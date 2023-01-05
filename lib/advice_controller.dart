@@ -81,7 +81,7 @@ class AdviceController extends ControllerMVC {
     favAdviceList.remove(advice);
     saveMyPrefsList(favAdviceList);
     ScaffoldMessenger.of(context).showSnackBar(snackBar(message:
-    'Removed from favorites!'));
+    'Removed from favorites Movies!!'));
     notifyListeners();
   }
 
