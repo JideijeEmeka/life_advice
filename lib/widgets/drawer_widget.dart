@@ -35,13 +35,13 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
                   const CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
-                    child: Text('LA', style: TextStyle(
+                    child: Text('GA', style: TextStyle(
                         fontSize: 24, color: Colors.blue
                     ),),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 5),
-                    child: Text('Emeka Jideije', style: AppTextStyles.normalTextStyle(
+                    child: Text('Get Advice', style: AppTextStyles.normalTextStyle(
                         color: Colors.white)),
                   ),
                   Text('jideije.emeka@gmail.com', style: AppTextStyles.normalTextStyle(
