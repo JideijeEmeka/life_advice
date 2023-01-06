@@ -5,6 +5,7 @@ import 'package:life_advice/views/details_view.dart';
 import 'package:life_advice/widgets/drawer_widget.dart';
 import 'package:life_advice/widgets/snack_bar_widget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -36,15 +37,19 @@ class _HomeViewState extends StateMVC<HomeView> {
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Life Advice'),
-        titleTextStyle: const TextStyle(
-            fontSize: 17),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        title: const Text('Get Advice'),
+        titleTextStyle: GoogleFonts.lobster(
+          textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18,
+            letterSpacing: 1.5, color: Colors.black)
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
             scaffoldKey.currentState!.openDrawer();
           },
-            icon: const Icon(Icons.menu)),
+            icon: const Icon(Icons.menu, color: Colors.black,)),
         actions: [
           /// Add to favorite list
           !con.favAdviceList.contains(con.advice.isNotEmpty ?
@@ -61,7 +66,7 @@ class _HomeViewState extends StateMVC<HomeView> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar(
                 message: 'Added to favorites!'));
           },
-              icon: const Icon(Icons.add, color: Colors.white, size: 30,))
+              icon: const Icon(Icons.add, color: Colors.black, size: 30,))
           /// Remove from favorite
           : IconButton(onPressed: () async {
             con.deleteFavById(context, con.advice.isNotEmpty ?
@@ -69,7 +74,7 @@ class _HomeViewState extends StateMVC<HomeView> {
                 'live like you will die tomorrow' : con.saved);
             debugPrint('see latest advice list: ${con.favAdviceList}');
           },
-              icon: const Icon(Icons.check, color: Colors.white, size: 30,))
+              icon: const Icon(Icons.check, color: Colors.black, size: 30,))
         ],
       ),
       drawer: const AppDrawer(),
@@ -145,6 +150,7 @@ class _HomeViewState extends StateMVC<HomeView> {
                   con.advice['slip']['id'].toString());
             },
                 style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)
                   ),
@@ -152,7 +158,7 @@ class _HomeViewState extends StateMVC<HomeView> {
                       horizontal: 25, vertical: 15),
                   textStyle: AppTextStyles.normalTextStyle(color: Colors.white)
                 ),
-                child: const Text('Get Advice')),
+                child: const Text('Advice me')),
           ],
         ),
       ),
