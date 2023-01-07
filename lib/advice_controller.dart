@@ -61,7 +61,7 @@ class AdviceController extends ControllerMVC {
       favAdviceList = fetchedAdviceList;
       myList = fetchedAdviceList;
     });
-    debugPrint('see list: $favAdviceList');
+    debugPrint('see favorite list: $favAdviceList');
   }
 
   Future addAdviceToList(String advice) async {
