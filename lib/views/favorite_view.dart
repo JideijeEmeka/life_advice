@@ -3,6 +3,7 @@ import 'package:life_advice/advice_controller.dart';
 import 'package:life_advice/views/home_view.dart';
 import 'package:life_advice/views/my_list_view.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FavoriteView extends StatefulWidget {
   final List favAdviceList;
@@ -30,16 +31,20 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Life Advice'),
-        titleTextStyle: const TextStyle(
-            fontSize: 17),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        title: const Text('Get Advice'),
+        titleTextStyle: GoogleFonts.lobster(
+            textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18,
+                letterSpacing: 1.5, color: Colors.black)
+        ),
         centerTitle: true,
         leading: BackButton(onPressed: () =>
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (_) => const HomeView())),
-            color: Colors.white,),
+            color: Colors.black,),
       ),
       body: SingleChildScrollView(
         child: con.favAdviceList.isEmpty
@@ -47,7 +52,7 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
               padding: EdgeInsets.symmetric(vertical: 250),
               child: Center(
                 child: Text('No favorites found...', style: TextStyle(
-              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+              color: Colors.grey, fontSize: 20, fontWeight: FontWeight.bold)),
               ),
             ) :
         Container(
