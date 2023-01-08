@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:life_advice/views/home_view.dart';
 import 'package:life_advice/views/splash_view.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OverlaySupport.global(
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Get Advice',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
