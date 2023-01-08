@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:life_advice/views/home_view.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -25,10 +24,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("LA", style: GoogleFonts.lobster(
-          textStyle: const TextStyle(color: Colors.black,
-              fontWeight: FontWeight.w500, fontSize: 30)
-        ),),
+        child: Image.asset('asset/images/app_logo.png'),
       ),
     );
   }
