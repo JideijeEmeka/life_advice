@@ -12,6 +12,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class AdviceController extends ControllerMVC {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late SharedPreferences prefs;
   Map<String, dynamic> advice = {};

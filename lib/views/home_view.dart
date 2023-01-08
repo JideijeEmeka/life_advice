@@ -20,7 +20,6 @@ class _HomeViewState extends StateMVC<HomeView> {
   }
 
   late AdviceController con;
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _HomeViewState extends StateMVC<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: con.scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -47,7 +46,7 @@ class _HomeViewState extends StateMVC<HomeView> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            scaffoldKey.currentState!.openDrawer();
+            con.scaffoldKey.currentState!.openDrawer();
           },
             icon: const Icon(Icons.menu, color: Colors.black,)),
         actions: [
@@ -143,7 +142,7 @@ class _HomeViewState extends StateMVC<HomeView> {
                     ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             ElevatedButton(onPressed: () async {
               await con.getRandomAdvice();
               con.savePrefs(con.advice['slip']['advice'],
@@ -151,6 +150,7 @@ class _HomeViewState extends StateMVC<HomeView> {
             },
                 style: ElevatedButton.styleFrom(
                   elevation: 0.0,
+                  primary: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)
                   ),
