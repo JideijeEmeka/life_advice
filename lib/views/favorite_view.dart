@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:life_advice/advice_controller.dart';
-import 'package:life_advice/views/home_view.dart';
 import 'package:life_advice/views/my_list_view.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FavoriteView extends StatefulWidget {
   final List favAdviceList;
-  const FavoriteView({Key? key, required this.favAdviceList})
+  final int drawerIndex;
+  const FavoriteView({Key? key, required this.favAdviceList, required this.drawerIndex})
       : super(key: key);
 
   @override
@@ -29,6 +29,7 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: con.scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -40,10 +41,7 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
         ),
         centerTitle: true,
         leading: BackButton(onPressed: () =>
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => const HomeView())),
+            Navigator.pop(context),
             color: Colors.black,),
       ),
       body: SingleChildScrollView(
