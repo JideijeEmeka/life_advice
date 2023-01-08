@@ -27,6 +27,14 @@ dev_dependencies:
   connectivity_plus: any
   persistent_bottom_nav_bar_v2: ^4.2.6
   google_fonts: 2.1.1
+  flutter_launcher_icons: ^0.11.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "asset/images/app_logo.png"
+  min_sdk_android: 20
+
 
 flutter:
 
