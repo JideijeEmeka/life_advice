@@ -35,7 +35,7 @@ class _FavoriteViewState extends StateMVC<FavoriteView> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: const Text('Get Advice'),
-        titleTextStyle: GoogleFonts.lobster(
+        titleTextStyle: GoogleFonts.actor(
             textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18,
                 letterSpacing: 1.5, color: Colors.black)
         ),

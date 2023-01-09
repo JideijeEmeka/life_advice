@@ -28,6 +28,7 @@ dev_dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.6
   google_fonts: 2.1.1
   flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: any
 
 flutter_icons:
   android: true
@@ -35,6 +36,21 @@ flutter_icons:
   image_path: "asset/images/app_logo.png"
   min_sdk_android: 20
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: asset/images/app_logo.png
+  branding: asset/images/app_logo.png
+  color_dark: "#121212"
+  image_dark: asset/images/app_logo_dark.png
+  branding_dark: asset/images/app_logo_dark.png
+
+  android_12:
+    image: asset/images/app_logo.png
+    icon_background_color: "#ffffff"
+    image_dark: asset/images/app_logo_dark.png
+    icon_background_color_dark: "#121212"
+
+  web: false
 
 flutter:
 
