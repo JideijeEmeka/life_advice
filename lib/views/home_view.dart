@@ -39,7 +39,7 @@ class _HomeViewState extends StateMVC<HomeView> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: const Text('Get Advice'),
-        titleTextStyle: GoogleFonts.actor(
+        titleTextStyle: GoogleFonts.lobster(
           textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18,
             letterSpacing: 1.5, color: Colors.black)
         ),
