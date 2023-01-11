@@ -13,6 +13,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 class AdviceController extends ControllerMVC {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController searchController = TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late SharedPreferences prefs;
   Map<String, dynamic> advice = {};
@@ -22,10 +23,13 @@ class AdviceController extends ControllerMVC {
   String savedId = '';
   bool isLoading = false;
   late String fetchedAdvice;
+  late String searchedAdvice;
+  late String totalSearchedResults;
 
   // Add advice to Favorite List
   List<String> favIdList = [];
   List<String> favAdviceList = [];
+  List searchedAdviceList = [];
   List<String> myList = [];
 
   // Check Internet Connection
@@ -84,6 +88,37 @@ class AdviceController extends ControllerMVC {
     ScaffoldMessenger.of(context).showSnackBar(snackBar(message:
     'Removed from favorites!'));
     notifyListeners();
+  }
+
+  Future searchAdvice({required String query}) async {
+    setState(() {
+      isLoading = true;
+    });
+    final connected = await checkInternet();
+    final color = isConnected ? Colors.green : Colors.red;
+    if(!connected) {
+      showSimpleNotification(
+        Text('You are offline...', style: AppTextStyles.normalTextStyle(color: Colors.white)),
+        background: color,
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }
+    var response = await http.get(searchAdviceUrl(query: query));
+    if(response.statusCode >= 400) {
+      throw ErrorHint('Bad request!');
+    }
+    var jsonMap = json.decode(response.body);
+    setState(() {
+      advice = jsonMap;
+      totalSearchedResults = advice['total_results'];
+      searchedAdviceList = advice['slips'];
+      isLoading = false;
+    });
+    debugPrint('total searched advice: $totalSearchedResults');
+    debugPrint('total searched list: $searchedAdviceList');
+    return Slip.fromJson(jsonMap);
   }
 
   Future getRandomAdvice() async {
