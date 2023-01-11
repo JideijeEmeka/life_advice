@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_advice/advice_controller.dart';
 import 'package:life_advice/app_text_styles.dart';
 import 'package:life_advice/views/favorite_view.dart';
+import 'package:life_advice/views/search_view.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -56,10 +57,8 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
                   selected = true;
                   index = 1;
                 });
-                Future.delayed(const Duration(milliseconds: 100), () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_)
-                  => FavoriteView(favAdviceList: con.favAdviceList, drawerIndex: 1,)));
-                });
+                Navigator.push(context, MaterialPageRoute(builder: (_)
+                => FavoriteView(favAdviceList: con.favAdviceList, drawerIndex: 1,)));
               },
               selected: selected,
               selectedTileColor: index == 1 ? Colors.black : null,
@@ -82,12 +81,14 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
                   selected = true;
                   index = 2;
                 });
+                Navigator.push(context, MaterialPageRoute(builder: (_)
+                => const SearchView(drawerIndex: 2)));
               },
               selected: selected,
               selectedTileColor: index == 2 ? Colors.black : null,
-              leading: Icon(Icons.settings,
+              leading: Icon(Icons.search,
                 color: index == 2 ? Colors.white : Colors.black,),
-              title: Text('Settings', style: AppTextStyles.normalTextStyle(
+              title: Text('Search', style: AppTextStyles.normalTextStyle(
                   color: index == 2 ? Colors.white : Colors.black)),
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -117,7 +118,29 @@ class _AppDrawerState extends StateMVC<AppDrawer> {
                   )
               ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: ListTile(
+              onTap: () {
+                setState(() {
+                  selected = true;
+                  index = 4;
+                });
+              },
+              selected: selected,
+              selectedTileColor: index == 4 ? Colors.black : null,
+              leading: Icon(Icons.settings,
+                color: index == 4 ? Colors.white : Colors.black,),
+              title: Text('Settings', style: AppTextStyles.normalTextStyle(
+                  color: index == 4 ? Colors.white : Colors.black)),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(35), bottomRight: Radius.circular(35)
+                  )
+              ),
+            ),
+          ),
         ],
       ),
     );
