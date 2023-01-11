@@ -29,6 +29,7 @@ dev_dependencies:
   google_fonts: 2.1.1
   flutter_launcher_icons: ^0.11.0
   flutter_native_splash: any
+  font_awesome_flutter: ^10.3.0
 
 flutter_icons:
   android: true
